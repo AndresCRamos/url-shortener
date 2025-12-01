@@ -15,7 +15,7 @@ func ShortenURL(originalURL string) string {
 	dividend := counter
 	for {
 		if dividend < len(allowedChars) {
-			charPositions = append([]int{dividend}, charPositions...)
+			charPositions = append(charPositions, dividend)
 			break
 		}
 		remainder := dividend % len(allowedChars)
