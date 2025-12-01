@@ -15,7 +15,7 @@ var (
 	configSingleton *Config
 )
 
-func GetConfig() Config {
+func GetConfig() *Config {
 	once.Do(func() {
 		configSingleton = &Config{
 			Port: "8080",
@@ -31,5 +31,5 @@ func GetConfig() Config {
 			configSingleton.DatabaseURL = envDBURL
 		}
 	})
-	return *configSingleton
+	return configSingleton
 }
