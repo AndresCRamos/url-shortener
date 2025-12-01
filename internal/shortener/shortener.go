@@ -5,6 +5,10 @@ var (
 	allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-."
 )
 
+func setCounterForTests(value int) {
+	counter = value
+}
+
 func ShortenURL(originalURL string) string {
 	// Dummy implementation for URL shortening
 	charPositions := []int{}
