@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	config "github.com/AndresCRamos/url-shortener/internal/config"
+	"github.com/AndresCRamos/url-shortener/internal/config"
 )
 
 func main() {
