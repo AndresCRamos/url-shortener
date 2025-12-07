@@ -9,5 +9,4 @@ import (
 type ShortenURLRepository interface {
 	Save(ctx context.Context, url *model.ShortenURLModel) (*model.ShortenURLModel, error)
 	FindByShort(ctx context.Context, short string) (*model.ShortenURLModel, error)
-	Exists(ctx context.Context, short string) (bool, error)
 }
