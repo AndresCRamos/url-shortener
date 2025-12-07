@@ -1,9 +1,13 @@
 package shortener
 
-import "context"
+import (
+	"context"
+
+	model "github.com/AndresCRamos/url-shortener/internal/model"
+)
 
 type ShortenURLRepository interface {
-	Save(ctx context.Context, url *ShortenURLModel) (*ShortenURLModel, error)
-	FindByShort(ctx context.Context, short string) (*ShortenURLModel, error)
+	Save(ctx context.Context, url *model.ShortenURLModel) (*model.ShortenURLModel, error)
+	FindByShort(ctx context.Context, short string) (*model.ShortenURLModel, error)
 	Exists(ctx context.Context, short string) (bool, error)
 }
