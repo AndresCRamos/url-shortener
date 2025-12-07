@@ -7,6 +7,7 @@ package db
 
 import (
 	"context"
+	"database/sql"
 )
 
 const createShortenLink = `-- name: CreateShortenLink :one
@@ -15,7 +16,7 @@ INSERT INTO SHORTEN_LINKS
 VALUES(
     ?, ?
 )
-RETURNING id
+RETURNING id, short_code, original_url, created_at, views
 `
 
 type CreateShortenLinkParams struct {
@@ -23,11 +24,44 @@ type CreateShortenLinkParams struct {
 	OriginalUrl string
 }
 
-func (q *Queries) CreateShortenLink(ctx context.Context, arg CreateShortenLinkParams) (interface{}, error) {
+func (q *Queries) CreateShortenLink(ctx context.Context, arg CreateShortenLinkParams) (ShortenLink, error) {
 	row := q.db.QueryRowContext(ctx, createShortenLink, arg.ShortCode, arg.OriginalUrl)
-	var id interface{}
-	err := row.Scan(&id)
-	return id, err
+	var i ShortenLink
+	err := row.Scan(
+		&i.ID,
+		&i.ShortCode,
+		&i.OriginalUrl,
+		&i.CreatedAt,
+		&i.Views,
+	)
+	return i, err
+}
+
+const getShortenLink = `-- name: GetShortenLink :one
+SELECT
+id, original_url, created_at, views
+FROM SHORTEN_LINKS
+WHERE short_code = ?
+LIMIT 1
+`
+
+type GetShortenLinkRow struct {
+	ID          interface{}
+	OriginalUrl string
+	CreatedAt   sql.NullTime
+	Views       sql.NullInt64
+}
+
+func (q *Queries) GetShortenLink(ctx context.Context, shortCode string) (GetShortenLinkRow, error) {
+	row := q.db.QueryRowContext(ctx, getShortenLink, shortCode)
+	var i GetShortenLinkRow
+	err := row.Scan(
+		&i.ID,
+		&i.OriginalUrl,
+		&i.CreatedAt,
+		&i.Views,
+	)
+	return i, err
 }
 
 const incrementViews = `-- name: IncrementViews :exec
