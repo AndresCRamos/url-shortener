@@ -48,3 +48,7 @@ func (sqr *ShortenerSQLiteRepo) FindByShort(ctx context.Context, short string) (
 		Views:     int(res.Views.Int64),
 	}, nil
 }
+
+func (sqr *ShortenerSQLiteRepo) IncrementVisitCount(ctx context.Context, short string) error {
+	return sqr.queries.IncrementViews(ctx, short)
+}
