@@ -27,7 +27,7 @@ func (sqr *ShortenerSQLiteRepo) Save(ctx context.Context, url *model.ShortenURLM
 		return nil, err
 	}
 	return &model.ShortenURLModel{
-		ID:        res.ID.(int),
+		ID:        int(res.ID.(int64)),
 		Short:     res.ShortCode,
 		Original:  res.OriginalUrl,
 		CreatedAt: res.CreatedAt.Time,
@@ -41,7 +41,7 @@ func (sqr *ShortenerSQLiteRepo) FindByShort(ctx context.Context, short string) (
 		return nil, err
 	}
 	return &model.ShortenURLModel{
-		ID:        res.ID.(int),
+		ID:        int(res.ID.(int64)),
 		Short:     short,
 		Original:  res.OriginalUrl,
 		CreatedAt: res.CreatedAt.Time,
