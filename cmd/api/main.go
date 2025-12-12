@@ -25,12 +25,16 @@ func main() {
 	repo := sqlite.NewShortenerSQLiteRepo(queries)
 
 	ctx := context.Background()
+	code := "abc123"
 	created, err := repo.Save(ctx, &model.ShortenURLModel{
-		Short:    "abc123",
+		Short:    code,
 		Original: "https://example.com",
 	})
 	fmt.Println(created, err)
-	search, err := repo.FindByShort(ctx, "abc123")
+	err = repo.IncrementVisitCount(ctx, code)
+	fmt.Println("Incremented views:", err)
 
+	search, err := repo.FindByShort(ctx, code)
 	fmt.Println(search, err)
+
 }
