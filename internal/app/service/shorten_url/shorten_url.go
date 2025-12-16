@@ -9,7 +9,7 @@ func setCounterForTests(value int) {
 	counter = value
 }
 
-func ShortenURL(originalURL string) string {
+func generateShortURL() string {
 	// Dummy implementation for URL shortening
 	charPositions := []int{}
 	dividend := counter
