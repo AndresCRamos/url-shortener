@@ -1,4 +1,4 @@
-package shortener
+package shorten_url
 
 import (
 	"testing"
