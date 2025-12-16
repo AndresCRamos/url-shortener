@@ -4,11 +4,12 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"log"
 
 	"github.com/AndresCRamos/url-shortener/internal/adapter/sqlite"
+	service "github.com/AndresCRamos/url-shortener/internal/app/service/shorten_url"
 	"github.com/AndresCRamos/url-shortener/internal/config"
 	sqlc "github.com/AndresCRamos/url-shortener/internal/db"
-	"github.com/AndresCRamos/url-shortener/internal/domain/shorten_link/model"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -23,18 +24,22 @@ func main() {
 
 	queries := sqlc.New(db)
 	repo := sqlite.NewShortenerSQLiteRepo(queries)
+	service := service.NewURLShortenerService(repo)
 
 	ctx := context.Background()
-	code := "abc123"
-	created, err := repo.Save(ctx, &model.ShortenURLModel{
-		Short:    code,
-		Original: "https://example.com",
-	})
-	fmt.Println(created, err)
-	err = repo.IncrementVisitCount(ctx, code)
-	fmt.Println("Incremented views:", err)
 
-	search, err := repo.FindByShort(ctx, code)
-	fmt.Println(search, err)
+	shortenModel, err := service.CreateShortenURL(ctx, "https://example.com/some/very/long/url4")
+	if err != nil {
+		log.Println(err)
+	} else {
+		fmt.Println("Shortened URL: ", shortenModel)
+	}
+
+	retrievedModel, err := service.GetOriginalURL(ctx, "Op")
+	if err != nil {
+		log.Println(err)
+	} else {
+		fmt.Println("Retrieved Original URL: ", retrievedModel)
+	}
 
 }
