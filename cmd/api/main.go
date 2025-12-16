@@ -8,7 +8,7 @@ import (
 	"github.com/AndresCRamos/url-shortener/internal/adapter/sqlite"
 	"github.com/AndresCRamos/url-shortener/internal/config"
 	sqlc "github.com/AndresCRamos/url-shortener/internal/db"
-	"github.com/AndresCRamos/url-shortener/internal/model"
+	"github.com/AndresCRamos/url-shortener/internal/domain/shorten_link/model"
 	_ "github.com/mattn/go-sqlite3"
 )
 

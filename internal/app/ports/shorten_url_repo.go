@@ -3,7 +3,7 @@ package shortener
 import (
 	"context"
 
-	model "github.com/AndresCRamos/url-shortener/internal/model"
+	model "github.com/AndresCRamos/url-shortener/internal/domain/shorten_link/model"
 )
 
 type ShortenURLRepository interface {

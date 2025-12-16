@@ -1,4 +1,4 @@
-package shortener
+package shorten_url
 
 var (
 	counter      = 1000
