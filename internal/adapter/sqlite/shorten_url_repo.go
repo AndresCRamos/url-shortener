@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/AndresCRamos/url-shortener/internal/db"
-	model "github.com/AndresCRamos/url-shortener/internal/model"
+	model "github.com/AndresCRamos/url-shortener/internal/domain/shorten_link/model"
 )
 
 type ShortenerSQLiteRepo struct {
