@@ -32,7 +32,7 @@ func TestShortenURL(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			setCounterForTests(tt.counter)
-			got := ShortenURL("")
+			got := generateShortURL()
 			assert.Equal(t, tt.want, got)
 		})
 	}
